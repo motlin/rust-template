@@ -49,8 +49,8 @@
 	"MD010": {
 		// Don't check code blocks: oxfmt uses useTabs: true (including in markdown content)
 		"code_blocks": false,
-		// Fenced code languages to ignore
-		"ignore_code_languages": ["console"],
+		// Don't set ignore_code_languages here: with code_blocks false it acts as a
+		// whitelist, re-enabling tab checks inside every fence not in the list
 		// Number of spaces for each hard tab
 		"spaces_per_tab": 1,
 	},
