@@ -34,6 +34,12 @@ repos:
             language: system
             types: [rust]
             pass_filenames: false
+          - id: oxfmt
+            name: vp fmt
+            # Runs on all changed files; the flag makes oxfmt skip file types it
+            # does not format instead of erroring when none in the batch match
+            entry: vp fmt --no-error-on-unmatched-pattern
+            language: system
           - id: markdownlint-cli2
             name: markdownlint-cli2
             entry: markdownlint-cli2

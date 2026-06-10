@@ -13,16 +13,16 @@ GitHub Actions.
 3. Set `CLAUDE_CODE_TASK_LIST_ID` and `TAB_COLOR` in `.envrc`.
 4. Provision the toolchain and enable hooks:
 
-   ```console
-   just install
-   pre-commit install
-   ```
+    ```console
+    just install
+    pre-commit install
+    ```
 
 5. Run the full check suite:
 
-   ```console
-   just check
-   ```
+    ```console
+    just check
+    ```
 
 ## What's included
 
