@@ -10,5 +10,14 @@ export default {
 		bracketSpacing: false,
 		trailingComma: 'all',
 		arrowParens: 'always',
+		overrides: [
+			{
+				files: ['.yamllint.yaml', '**/*.yaml', '**/*.yml'],
+				options: {
+					useTabs: false,
+					tabWidth: 2,
+				},
+			},
+		],
 	},
 };
