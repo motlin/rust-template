@@ -6,13 +6,13 @@ export default {
 		tabWidth: 4,
 		printWidth: 120,
 		semi: true,
-		singleQuote: true,
+		singleQuote: false,
 		bracketSpacing: false,
-		trailingComma: 'all',
-		arrowParens: 'always',
+		trailingComma: "all",
+		arrowParens: "always",
 		overrides: [
 			{
-				files: ['.yamllint.yaml', '**/*.yaml', '**/*.yml'],
+				files: [".yamllint.yaml", "**/*.yaml", "**/*.yml"],
 				options: {
 					useTabs: false,
 					tabWidth: 2,
