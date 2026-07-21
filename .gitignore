@@ -11,6 +11,7 @@
 .llm/
 /.claude/*
 !/.claude/commands/
+!/.claude/includes/
 /.claude/settings.local.json
 
 # Local-only branch marker
