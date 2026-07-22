@@ -14,6 +14,8 @@ rules:
   commas: enable
   comments:
     level: warning
+    # oxfmt (vp fmt) normalizes inline comments to a single space before '#'
+    min-spaces-from-content: 1
   comments-indentation:
     level: warning
   document-end: disable
