@@ -1,6 +1,6 @@
 [tools]
 just = "1.57.0"
-rust = { version = "stable", components = "clippy,rustfmt,llvm-tools" }
+rust = { version = "1.97.1", components = "clippy,rustfmt,llvm-tools" }
 pre-commit = "4.6.1"
 node = "26.5.0"
 "npm:markdownlint-cli2" = "0.23.1"

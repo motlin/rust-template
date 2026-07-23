@@ -17,7 +17,7 @@ Read tool versions from `.mise/config.toml` in this template. mise is the single
 source of truth for the Rust toolchain and the cargo helper tools — there is no
 `rust-toolchain.toml`.
 
-- `rust` (channel + components: `clippy`, `rustfmt`, `llvm-tools-preview`)
+- `rust` (pinned version + components: `clippy`, `rustfmt`, `llvm-tools`)
 - `just`, `node`, `pre-commit`
 - `aqua:nextest-rs/nextest/cargo-nextest`
 - `aqua:EmbarkStudios/cargo-deny`
@@ -36,9 +36,10 @@ source of truth for the Rust toolchain and the cargo helper tools — there is n
 
 ### Rust version policy
 
-- **Own projects**: use the `stable` channel unless a project pins a specific
-  version for a reason.
-- **Components**: always include `clippy,rustfmt,llvm-tools-preview` (llvm-tools is
+- **Pin a specific version**: pin an exact `rust` version (e.g. `1.97.1`) — the
+  same version across the template and every own project. Do not use the `stable`
+  channel alias; pinned versions keep builds reproducible.
+- **Components**: always include `clippy,rustfmt,llvm-tools` (llvm-tools is
   required by `cargo-llvm-cov`).
 - **Never add `rust-toolchain.toml`** — keep mise as the single source of truth.
 
