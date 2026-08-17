@@ -11,6 +11,8 @@ Template path: !`pwd`
 
 ## Managed files
 
+- `scripts/audit-just-options.py` — repository-wide `just` option policy audit
+
 ### Mise tools
 
 Read tool versions from `.mise/config.toml` in this template. mise is the single
@@ -76,6 +78,10 @@ Suspect configs for this template's toolchain:
 
 @.claude/includes/sync-git-test.md
 
+## Just recipe options
+
+@.claude/includes/sync-just-options.md
+
 ## Workflow
 
 1. **Refresh the template.** Run the version checks above; if this template is
@@ -86,7 +92,9 @@ Suspect configs for this template's toolchain:
    recipe), verify it is intentional, update this template, then push to the others.
 3. **Scan for stale configs.** For each project, run the stale-config scan above
    before generating tooling tasks. Alert on findings; do not delete.
-4. **Generate tasks.** For each project, compare against this template and write
+4. **Audit recipe options.** Run the shared `just` option audit against each project
+   and create one project-scoped task for every failure.
+5. **Generate tasks.** For each project, compare against this template and write
    tasks into its `.llm/todo.md` for any mismatches.
 
 ## Creating tasks

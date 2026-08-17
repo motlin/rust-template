@@ -27,5 +27,9 @@ verify: check
     pre-commit run --all-files
     @echo "All pre-commit checks passed!"
 
+# Audit public singular recipe parameters for documented options
+audit-just-options:
+    python3 scripts/audit-just-options.py
+
 # Override this with a command called `woof` which notifies you in whatever ways you prefer.
 echo_command := env('ECHO_COMMAND', "echo")
