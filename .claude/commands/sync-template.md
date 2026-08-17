@@ -11,6 +11,8 @@ Template path: !`pwd`
 
 ## Managed files
 
+- `scripts/audit-just-options.py` — repository-wide `just` option policy audit
+
 ### Mise tools
 
 Read tool versions from `.mise/config.toml` in this template. mise is the single source of truth for the Rust toolchain and the cargo helper tools — there is no `rust-toolchain.toml`.
@@ -71,6 +73,10 @@ Suspect configs for this template's toolchain:
 
 @.claude/includes/sync-git-test.md
 
+## Just recipe options
+
+@.claude/includes/sync-just-options.md
+
 ## Workflow
 
 Work through these in order:
@@ -78,6 +84,7 @@ Work through these in order:
 - **Refresh the template.** Run the version checks above; if this template is behind, update it first.
 - **Pull from projects.** Read `.llm/projects.yaml` and scan each project's `.mise/config.toml`, `justfile`, `.just/*.just`, and `.github/workflows/*`. If any project has a newer version or a better CI pattern (new auto-fix job, useful recipe), verify it is intentional, update this template, then push to the others.
 - **Scan for stale configs.** For each project, run the stale-config scan above before generating tooling tasks. Alert on findings; do not delete.
+- **Audit recipe options.** Run the shared `just` option audit against each project and create one project-scoped task for every failure.
 - **Generate tasks.** For each project, compare against this template and write tasks into its `.llm/todo.md` for any mismatches.
 
 ## Creating tasks
