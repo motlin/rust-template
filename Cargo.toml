@@ -7,6 +7,7 @@ license = "Apache-2.0"
 repository = "https://github.com/motlin/rust-template"
 
 [dependencies]
+clap = { version = "4.6.6", features = ["derive"] }
 
 [dev-dependencies]
 
