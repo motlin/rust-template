@@ -69,6 +69,10 @@ Suspect configs for this template's toolchain:
 - `rust-toolchain.toml` — conflicts with mise as the single source of truth
 - Any other config for a tool the template has dropped
 
+## Git ignore files
+
+@.claude/includes/sync-gitignore.md
+
 ## Default git test
 
 @.claude/includes/sync-git-test.md
@@ -84,6 +88,7 @@ Work through these in order:
 - **Refresh the template.** Run the version checks above; if this template is behind, update it first.
 - **Pull from projects.** Read `.llm/projects.yaml` and scan each project's `.mise/config.toml`, `justfile`, `.just/*.just`, and `.github/workflows/*`. If any project has a newer version or a better CI pattern (new auto-fix job, useful recipe), verify it is intentional, update this template, then push to the others.
 - **Scan for stale configs.** For each project, run the stale-config scan above before generating tooling tasks. Alert on findings; do not delete.
+- **Scan ignore files.** For each project, run the `.gitignore` / `.git/info/exclude` scan above. Promote per-clone excludes every peer needs; question only hand-added dead entries. Alert on findings; do not edit either file.
 - **Audit recipe options.** Run the shared `just` option audit against each project and create one project-scoped task for every failure.
 - **Generate tasks.** For each project, compare against this template and write tasks into its `.llm/todo.md` for any mismatches.
 
