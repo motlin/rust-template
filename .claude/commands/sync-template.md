@@ -40,7 +40,7 @@ Pin it to a full version (`"4.6.6"`, not `"4"`) so the declared version is grepp
 
 Note what this does _not_ do: it does not unblock Dependabot. Because `Cargo.lock` is committed in every one of these projects, Dependabot already opens a PR for in-range upgrades as a lockfile-only change, and only edits `Cargo.toml` when the new version falls outside the requirement. A caret spec hides nothing.
 
-Also note that Cargo reads a bare `"4.6.6"` as `^4.6.6`, not as an exact pin. Use `"=4.6.6"` if a project ever needs a true hard pin; the shared baseline deliberately does not, so in-range security patches can still land via lockfile.
+Also note that Cargo reads a bare `"4.6.6"` as `^4.6.6`, not as an exact pin. Do not reach for `"=4.6.6"`: `klassfmt` and `quarto/solver` are libraries, and a `=` requirement in a library propagates to dependents and produces version conflicts they cannot resolve. The committed lockfile is the real pin, so `=` would add ceremony without adding reproducibility.
 
 ### GitHub workflows
 
@@ -49,9 +49,10 @@ Also note that Cargo reads a bare `"4.6.6"` as `^4.6.6`, not as an exact pin. Us
 
 ### Crate version policy
 
-- **Pin full versions** for every crate in `[dependencies]` and `[dev-dependencies]` — write `clap = { version = "4.6.6", ... }`, never `"4"` or `"4.6"`. This is for readability and cross-project consistency, not for Dependabot coverage, which a committed `Cargo.lock` already provides.
-- **Same version everywhere.** The template and every own project pin the identical version of a shared crate.
-- **Apply the 24-hour rule** from the version policy below to crates too: check the crates.io publish timestamp before pinning a brand-new release.
+- **Pin full versions in the shared baseline only** — write `clap = { version = "4.6.6", ... }`, never `"4"` or `"4.6"`. The point is cross-project comparison: a full version makes drift between projects greppable. It is not for Dependabot coverage, which a committed `Cargo.lock` already provides.
+- **Leave project-local crates on whatever spec they have.** Do not sweep `tokio`, `serde`, `tree-sitter` and friends into full versions. A bare spec is only a floor, and every lockfile-only Dependabot PR makes that floor staler — so pinning them buys nothing functional and creates a sync task that regenerates "refresh these numbers" forever. The lockfile is the pin.
+- **Same version everywhere.** The template and every own project pin the identical version of a shared-baseline crate.
+- **Apply the 24-hour rule** from the version policy below to baseline crates too: check the crates.io publish timestamp before pinning a brand-new release.
 
 ```bash
 curl -s https://crates.io/api/v1/crates/<crate>/versions | jq -r '.versions[0] | "\(.num) \(.created_at)"'
