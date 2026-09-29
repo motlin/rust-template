@@ -161,10 +161,23 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
       - run: markdownlint-cli2
 
+  zizmor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
+        with:
+          # Audit only this repo's CI config; derived repos may vendor third-party workflows.
+          inputs: .github/
+          # SARIF upload requires GitHub Advanced Security, which derived private repos may lack.
+          advanced-security: false
+
   all-checks:
     name: All checks
     if: ${{ !cancelled() }}
-    needs: [pre-commit, build, test, clippy, fmt, deny, coverage, markdownlint]
+    needs: [pre-commit, build, test, clippy, fmt, deny, coverage, markdownlint, zizmor]
     runs-on: ubuntu-latest
     steps:
       - uses: re-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35 # release/v1

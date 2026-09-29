@@ -24,6 +24,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Enable auto-merge for Dependabot PR
         run: gh pr merge --rebase --auto "${{ github.event.pull_request.number }}"
@@ -40,7 +42,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
@@ -54,6 +56,9 @@ jobs:
           git config --global user.email "github-actions@github.com"
 
       - name: Run cargo fmt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
           cargo fmt --all
 
@@ -63,7 +68,7 @@ jobs:
 
             git add --all
             git commit --message "Apply cargo fmt fixes."
-            git push --force origin $FIX_BRANCH
+            git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${HEAD_REPO}" "$FIX_BRANCH"
 
             echo "cargo fmt fixes have been pushed to the $FIX_BRANCH branch."
             exit 1
@@ -81,7 +86,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
@@ -102,6 +107,9 @@ jobs:
           git config --global user.email "github-actions@github.com"
 
       - name: Run cargo clippy --fix
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
           cargo clippy --fix --allow-dirty --allow-no-vcs --all-targets --all-features
 
@@ -111,7 +119,7 @@ jobs:
 
             git add --all
             git commit --message "Apply cargo clippy fixes."
-            git push --force origin $FIX_BRANCH
+            git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${HEAD_REPO}" "$FIX_BRANCH"
 
             echo "cargo clippy fixes have been pushed to the $FIX_BRANCH branch."
             exit 1
@@ -129,7 +137,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         env:
@@ -141,6 +149,9 @@ jobs:
           git config --global user.email "github-actions@github.com"
 
       - name: Run pre-commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
           pre-commit run --all-files || true
 
@@ -150,7 +161,7 @@ jobs:
 
             git add --all
             git commit --message "Apply pre-commit fixes."
-            git push --force origin $FIX_BRANCH
+            git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${HEAD_REPO}" "$FIX_BRANCH"
 
             echo "pre-commit fixes have been pushed to the $FIX_BRANCH branch."
             exit 1
