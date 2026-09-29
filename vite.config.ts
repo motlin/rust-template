@@ -20,6 +20,12 @@ export default {
 					tabWidth: 2,
 				},
 			},
+			{
+				files: ["**/*.md"],
+				options: {
+					printWidth: 320,
+				},
+			},
 		],
 	},
 };
