@@ -13,9 +13,7 @@ Template path: !`pwd`
 
 ### Mise tools
 
-Read tool versions from `.mise/config.toml` in this template. mise is the single
-source of truth for the Rust toolchain and the cargo helper tools — there is no
-`rust-toolchain.toml`.
+Read tool versions from `.mise/config.toml` in this template. mise is the single source of truth for the Rust toolchain and the cargo helper tools — there is no `rust-toolchain.toml`.
 
 - `rust` (pinned version + components: `clippy`, `rustfmt`, `llvm-tools`)
 - `just`, `node`, `pre-commit`
@@ -36,11 +34,8 @@ source of truth for the Rust toolchain and the cargo helper tools — there is n
 
 ### Rust version policy
 
-- **Pin a specific version**: pin an exact `rust` version (e.g. `1.97.1`) — the
-  same version across the template and every own project. Do not use the `stable`
-  channel alias; pinned versions keep builds reproducible.
-- **Components**: always include `clippy,rustfmt,llvm-tools` (llvm-tools is
-  required by `cargo-llvm-cov`).
+- **Pin a specific version**: pin an exact `rust` version (e.g. `1.97.1`) — the same version across the template and every own project. Do not use the `stable` channel alias; pinned versions keep builds reproducible.
+- **Components**: always include `clippy,rustfmt,llvm-tools` (llvm-tools is required by `cargo-llvm-cov`).
 - **Never add `rust-toolchain.toml`** — keep mise as the single source of truth.
 
 ## Version policy
@@ -78,16 +73,12 @@ Suspect configs for this template's toolchain:
 
 ## Workflow
 
-1. **Refresh the template.** Run the version checks above; if this template is
-   behind, update it first.
-2. **Pull from projects.** Read `.llm/projects.yaml` and scan each project's
-   `.mise/config.toml`, `justfile`, `.just/*.just`, and `.github/workflows/*`. If
-   any project has a newer version or a better CI pattern (new auto-fix job, useful
-   recipe), verify it is intentional, update this template, then push to the others.
-3. **Scan for stale configs.** For each project, run the stale-config scan above
-   before generating tooling tasks. Alert on findings; do not delete.
-4. **Generate tasks.** For each project, compare against this template and write
-   tasks into its `.llm/todo.md` for any mismatches.
+Work through these in order:
+
+- **Refresh the template.** Run the version checks above; if this template is behind, update it first.
+- **Pull from projects.** Read `.llm/projects.yaml` and scan each project's `.mise/config.toml`, `justfile`, `.just/*.just`, and `.github/workflows/*`. If any project has a newer version or a better CI pattern (new auto-fix job, useful recipe), verify it is intentional, update this template, then push to the others.
+- **Scan for stale configs.** For each project, run the stale-config scan above before generating tooling tasks. Alert on findings; do not delete.
+- **Generate tasks.** For each project, compare against this template and write tasks into its `.llm/todo.md` for any mismatches.
 
 ## Creating tasks
 
