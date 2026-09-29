@@ -1,5 +1,4 @@
-Read the project list from `.llm/projects.yaml`. This file is gitignored so each machine
-configures its own projects.
+Read the project list from `.llm/projects.yaml`. This file is gitignored so each machine configures its own projects.
 
 ```yaml
 # Projects synced from this template

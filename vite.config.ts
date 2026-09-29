@@ -5,6 +5,8 @@ export default {
 		useTabs: true,
 		tabWidth: 4,
 		printWidth: 120,
+		proseWrap: "never",
+		embeddedLanguageFormatting: "off",
 		semi: true,
 		singleQuote: false,
 		bracketSpacing: false,
