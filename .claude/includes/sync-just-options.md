@@ -7,10 +7,10 @@ Every public singular recipe parameter must be a documented command-line option:
 - Keep variadic passthrough parameters such as `*FLAGS` and `*args` positional.
 - Keep dependency expressions inside justfiles positional. Only command-line callers use option syntax.
 
-Run the base template's audit against the template and every selected project. The audit loads every tracked root and nested justfile through `just --dump --dump-format json` and reports public singular parameters that lack an option or option help text.
+From this template's root, run its audit against the template and every selected project. The audit loads every tracked root and nested justfile through `just --dump --dump-format json` and reports public singular parameters that lack an option or option help text.
 
 ```bash
-python3 ~/projects/project-template/scripts/audit-just-options.py <project-path>
+python3 scripts/audit-just-options.py <project-path>
 ```
 
 Create one task per failing project that lists every reported recipe and parameter. The task must require the corresponding option declaration, caller migrations, `just --usage <recipe>` inspection, representative `just --dry-run` calls, and a passing audit. Do not create conversion tasks for private helpers or variadic passthrough parameters.
