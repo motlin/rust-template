@@ -11,7 +11,7 @@ Template path: !`pwd`
 
 ## Managed files
 
-- `scripts/audit-just-options.py` — repository-wide `just` option policy audit
+`scripts/audit-just-options.py` and its `audit-just-options` justfile recipe stay in the template. The sync runs the audit against each sibling from here; do not copy the script or the recipe into siblings.
 
 ### Mise tools
 
