@@ -17,7 +17,7 @@ A dependency, hook, or migration does not implicitly cover its configuration fil
 ```bash
 # Use the newest installed markdown-tasks plugin version (path rots if pinned)
 TASK_ADD=$(find ~/.claude/plugins/cache/motlin-claude-code-plugins/markdown-tasks -name task_add.py | sort --version-sort | tail -1)
-python3 "$TASK_ADD" ~/projects/<project>/.llm/todo.md "<task text>"
+python3 "$TASK_ADD" <project-path>/.llm/todo.md "<task text>"
 ```
 
 One task per out-of-sync file: name the file, say to match this template, and end the task body with a `Source: <template path>` line naming this template. Tasks with prerequisites must say so.
